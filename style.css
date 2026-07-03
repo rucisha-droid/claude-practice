@@ -1,0 +1,280 @@
+/* Base Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Georgia, serif;
+  color: #222;
+  line-height: 1.7;
+}
+
+/* Shared Section Padding */
+section {
+  padding: 60px 20px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* Hero */
+.hero {
+  background-color: #1a3c5e;
+  color: #fff;
+  text-align: center;
+  padding: 80px 20px;
+  max-width: 100%;
+}
+
+.price-badge {
+  display: inline-block;
+  background-color: #f0a500;
+  color: #1a3c5e;
+  font-weight: bold;
+  font-size: 0.9rem;
+  padding: 6px 16px;
+  border-radius: 20px;
+  margin-bottom: 18px;
+}
+
+.hero h1 {
+  font-size: 2.8rem;
+  margin-bottom: 12px;
+}
+
+.hero .tagline {
+  font-size: 1.3rem;
+  color: #a8d0f0;
+  margin-bottom: 16px;
+}
+
+.hero .subtitle {
+  font-size: 1rem;
+  max-width: 600px;
+  margin: 0 auto 24px;
+  color: #d0e8f8;
+}
+
+.exam-tags {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 28px;
+}
+
+.exam-tags span {
+  background-color: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #fff;
+  padding: 5px 14px;
+  border-radius: 20px;
+  font-size: 0.88rem;
+}
+
+.payment-note {
+  margin-top: 12px;
+  font-size: 0.85rem;
+  color: #a8d0f0;
+}
+
+/* Buttons */
+.btn {
+  display: inline-block;
+  background-color: #f0a500;
+  color: #1a3c5e;
+  padding: 14px 32px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.btn:hover {
+  background-color: #d4900a;
+}
+
+.btn-light {
+  background-color: #fff;
+  color: #1a3c5e;
+}
+
+.btn-light:hover {
+  background-color: #e8e8e8;
+}
+
+/* What You Get */
+.what-you-get {
+  border-left: 4px solid #1a3c5e;
+  padding-left: 28px;
+}
+
+.what-you-get h2 {
+  font-size: 1.8rem;
+  color: #1a3c5e;
+  margin-bottom: 20px;
+}
+
+.get-list {
+  list-style: none;
+  padding: 0;
+}
+
+.get-list li {
+  padding: 10px 0;
+  border-bottom: 1px solid #e8e8e8;
+  font-size: 1rem;
+}
+
+.get-list li::before {
+  content: "→ ";
+  color: #f0a500;
+  font-weight: bold;
+}
+
+/* Benefits */
+.benefits {
+  background-color: #f4f8fc;
+  max-width: 100%;
+  padding: 60px 20px;
+}
+
+.benefits h2 {
+  text-align: center;
+  font-size: 1.8rem;
+  margin-bottom: 36px;
+  color: #1a3c5e;
+}
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.card {
+  background-color: #fff;
+  border: 1px solid #d0dce8;
+  border-radius: 8px;
+  padding: 24px;
+  width: 200px;
+  flex: 1 1 200px;
+}
+
+.card h3 {
+  font-size: 1.05rem;
+  color: #1a3c5e;
+  margin-bottom: 10px;
+}
+
+.card p {
+  font-size: 0.92rem;
+  color: #444;
+}
+
+/* Audience */
+.audience h2 {
+  font-size: 1.8rem;
+  color: #1a3c5e;
+  margin-bottom: 20px;
+}
+
+.audience ul {
+  list-style: none;
+  padding: 0;
+}
+
+.audience ul li {
+  padding: 10px 0;
+  border-bottom: 1px solid #e0e0e0;
+  font-size: 1rem;
+}
+
+.audience ul li::before {
+  content: "✓ ";
+  color: #1a3c5e;
+  font-weight: bold;
+}
+
+/* Pricing */
+.pricing {
+  text-align: center;
+}
+
+.pricing-box {
+  display: inline-block;
+  border: 2px solid #1a3c5e;
+  border-radius: 10px;
+  padding: 40px 48px;
+  max-width: 420px;
+  width: 100%;
+}
+
+.pricing-box h2 {
+  font-size: 1.4rem;
+  color: #1a3c5e;
+  margin-bottom: 10px;
+}
+
+.pricing-box .price {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #1a3c5e;
+  margin-bottom: 24px;
+}
+
+.pricing-box ul {
+  list-style: none;
+  text-align: left;
+  margin-bottom: 28px;
+  padding: 0;
+}
+
+.pricing-box ul li {
+  padding: 8px 0;
+  border-bottom: 1px solid #e8e8e8;
+  font-size: 0.95rem;
+}
+
+.pricing-box ul li::before {
+  content: "✓ ";
+  color: #1a3c5e;
+  font-weight: bold;
+}
+
+/* CTA */
+.cta {
+  background-color: #1a3c5e;
+  color: #fff;
+  text-align: center;
+  max-width: 100%;
+  padding: 70px 20px;
+}
+
+.cta h2 {
+  font-size: 1.8rem;
+  margin-bottom: 14px;
+}
+
+.cta p {
+  font-size: 1rem;
+  margin-bottom: 28px;
+  color: #d0e8f8;
+}
+
+/* Footer */
+footer {
+  background-color: #111;
+  color: #aaa;
+  text-align: center;
+  padding: 30px 20px;
+  font-size: 0.88rem;
+}
+
+footer p {
+  margin-bottom: 6px;
+}
