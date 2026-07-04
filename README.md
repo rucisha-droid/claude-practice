@@ -29,3 +29,8 @@ Just open `index.html` in any web browser. No server or installation needed.
 - How to keep an existing README's useful content instead of blindly overwriting it
 - How to check a project's other notes (`notes.md`, `day-2-claude-code.md`) for context before making changes
 - How to make small, targeted edits to a file rather than rewriting the whole thing
+
+## Day 4: Codex Started
+
+- Codex CLI installed successfully
+- Codex opened inside the GitHub practice repo
