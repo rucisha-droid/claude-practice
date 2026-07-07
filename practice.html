@@ -15,7 +15,8 @@
       font-family: Arial, sans-serif;
       color: #222;
       line-height: 1.6;
-      background-color: #f7f9fc;
+      background: linear-gradient(180deg, #f7f9fc 0%, #eef4f8 100%);
+      min-height: 100vh;
     }
 
     .container {
@@ -37,6 +38,22 @@
       margin-bottom: 28px;
     }
 
+    .goal-section {
+      background-color: #fff;
+      border: 1px solid #dfe8ef;
+      border-radius: 8px;
+      box-shadow: 0 8px 24px rgba(26, 60, 94, 0.08);
+      margin: 0 0 32px;
+      padding: 22px 24px;
+    }
+
+    .goal-section h2 {
+      color: #1a3c5e;
+      font-size: 1.25rem;
+      margin-bottom: 14px;
+      text-align: left;
+    }
+
     ul {
       list-style: none;
       text-align: left;
@@ -53,6 +70,10 @@
       content: "✓ ";
       color: #f0a500;
       font-weight: bold;
+    }
+
+    .goal-section ul {
+      margin-bottom: 0;
     }
 
     .btn {
@@ -80,6 +101,15 @@
     <p class="intro">
       Sharpen your pathology knowledge with quick, focused MCQ practice sets — perfect for daily revision.
     </p>
+
+    <section class="goal-section">
+      <h2>Today’s MCQ Goal</h2>
+      <ul>
+        <li>Complete one short topic-wise quiz</li>
+        <li>Review every incorrect answer carefully</li>
+        <li>Note one weak area for tomorrow</li>
+      </ul>
+    </section>
 
     <ul>
       <li>Practice topic-wise MCQs at your own pace</li>
