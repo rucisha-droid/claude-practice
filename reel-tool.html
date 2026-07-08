@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pathology Reel Script Generator</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(180deg, #f7f9fc 0%, #eef4f8 100%);
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 50px 20px;
+    }
+
+    h1 {
+      font-size: 1.9rem;
+      color: #1a3c5e;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .intro {
+      font-size: 1rem;
+      color: #444;
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    label {
+      font-weight: bold;
+      color: #1a3c5e;
+      font-size: 0.95rem;
+    }
+
+    #topic-input {
+      padding: 12px 14px;
+      border: 1px solid #d0dce8;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-family: inherit;
+    }
+
+    #topic-input:focus {
+      outline: none;
+      border-color: #1a3c5e;
+    }
+
+    .generate-btn {
+      width: 100%;
+      border: none;
+    }
+
+    .output-section {
+      background-color: #fff;
+      border: 1px solid #dfe8ef;
+      border-radius: 8px;
+      box-shadow: 0 8px 24px rgba(26, 60, 94, 0.08);
+      padding: 20px 22px;
+      margin-bottom: 20px;
+    }
+
+    .output-section h2 {
+      color: #1a3c5e;
+      font-size: 1.1rem;
+      margin-bottom: 10px;
+    }
+
+    .output-section .output-content {
+      font-size: 0.95rem;
+      color: #444;
+      white-space: pre-wrap;
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Pathology Reel Script Generator</h1>
+    <p class="intro">Enter a pathology topic and generate a ready-to-record reel script.</p>
+
+    <div class="input-group">
+      <label for="topic-input">Topic</label>
+      <input type="text" id="topic-input" placeholder="e.g. Acute Pancreatitis" />
+      <button class="btn generate-btn" type="button" id="generate-btn">Generate Script</button>
+    </div>
+
+    <div class="output-section">
+      <h2>Reel Title</h2>
+      <p class="output-content" id="title-output">—</p>
+    </div>
+
+    <div class="output-section">
+      <h2>Hinglish Script</h2>
+      <p class="output-content" id="script-output">—</p>
+    </div>
+
+    <div class="output-section">
+      <h2>Caption</h2>
+      <p class="output-content" id="caption-output">—</p>
+    </div>
+
+    <div class="output-section">
+      <h2>Hashtags</h2>
+      <p class="output-content" id="hashtags-output">—</p>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('generate-btn').addEventListener('click', function () {
+      var topic = document.getElementById('topic-input').value.trim();
+
+      if (!topic) {
+        alert('Please enter a pathology topic first.');
+        return;
+      }
+
+      var title = 'Don’t miss this MCQ trap: ' + topic;
+
+      var script = [
+        'Aaj baat karte hai ' + topic + ' ki.',
+        'Ye topic exam mein baar baar puchha jaata hai.',
+        topic + ' ka high-yield point yaad rakho.',
+        'Examiner isi mein MCQ trap deta hai.',
+        'Isko revise karna bilkul mat bhoolna.',
+        'Follow karo, Save karo, Share karo.'
+      ].join('\n');
+
+      var caption = [
+        topic + ' — high-yield for FMGE, NEET PG, INICET.',
+        'Save this reel for quick revision.',
+        'Tag a friend who needs this.',
+        'More pathology reels every day.'
+      ].join('\n');
+
+      var hashtags = '#Pathology #' + topic.replace(/\s+/g, '') + ' #NEETPG #FMGE #INICET';
+
+      document.getElementById('title-output').textContent = title;
+      document.getElementById('script-output').textContent = script;
+      document.getElementById('caption-output').textContent = caption;
+      document.getElementById('hashtags-output').textContent = hashtags;
+    });
+  </script>
+
+</body>
+</html>
