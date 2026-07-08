@@ -122,6 +122,11 @@
       <h2>Hashtags</h2>
       <p class="output-content" id="hashtags-output">—</p>
     </div>
+
+    <div class="output-section">
+      <h2>Video Shot List</h2>
+      <p class="output-content" id="shotlist-output">—</p>
+    </div>
   </div>
 
   <script>
@@ -153,10 +158,19 @@
 
       var hashtags = '#Pathology #' + topic.replace(/\s+/g, '') + ' #NEETPG #FMGE #INICET';
 
+      var shotList = [
+        '1. Close-up of you saying the topic name: "' + topic + '"',
+        '2. Whiteboard/notes shot writing the key high-yield point',
+        '3. Diagram or slide showing the mechanism/pathology',
+        '4. Quick MCQ trap example on screen',
+        '5. Talking-head outro: "Follow karo, Save karo, Share karo."'
+      ].join('\n');
+
       document.getElementById('title-output').textContent = title;
       document.getElementById('script-output').textContent = script;
       document.getElementById('caption-output').textContent = caption;
       document.getElementById('hashtags-output').textContent = hashtags;
+      document.getElementById('shotlist-output').textContent = shotList;
     });
   </script>
 
