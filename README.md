@@ -1,5 +1,7 @@
 # Pathology Navigator – 10-Day Crash Course Landing Page
 
+This repository is used for Claude Code and Codex practice.
+
 A simple, static landing page for the Pathology Navigator 10-Day Crash Course.
 
 ## Files
