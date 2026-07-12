@@ -184,6 +184,47 @@
       margin-bottom: 20px;
     }
 
+    .review-section {
+      margin-bottom: 22px;
+    }
+
+    .review-section h3 {
+      color: #1a3c5e;
+      font-size: 1.1rem;
+      margin-bottom: 14px;
+    }
+
+    .review-item {
+      border-top: 1px solid #dfe8ef;
+      padding: 16px 0;
+    }
+
+    .review-item:last-child {
+      border-bottom: 1px solid #dfe8ef;
+    }
+
+    .review-question {
+      color: #1a3c5e;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+
+    .review-answer {
+      margin-bottom: 4px;
+    }
+
+    .review-status {
+      font-weight: bold;
+    }
+
+    .review-status.correct {
+      color: #2e8b40;
+    }
+
+    .review-status.incorrect {
+      color: #c0392b;
+    }
+
     .hidden {
       display: none;
     }
@@ -230,6 +271,7 @@
     <section class="goal-section result-section hidden" id="result-section">
       <h2>Quiz Complete!</h2>
       <p class="score-text" id="score-text"></p>
+      <div class="review-section" id="review-section"></div>
       <button class="btn" type="button" id="restart-btn">Restart Quiz</button>
     </section>
   </div>
@@ -256,6 +298,7 @@
     var currentIndex = 0;
     var score = 0;
     var answered = false;
+    var selectedAnswers = [];
 
     var startBtn = document.getElementById('start-btn');
     var quizSection = document.getElementById('quiz-section');
@@ -267,6 +310,7 @@
     var nextBtn = document.getElementById('next-btn');
     var restartBtn = document.getElementById('restart-btn');
     var scoreText = document.getElementById('score-text');
+    var reviewSection = document.getElementById('review-section');
 
     function renderQuestion() {
       answered = false;
@@ -299,6 +343,7 @@
 
       var q = questions[currentIndex];
       var allOptionBtns = optionsContainer.querySelectorAll('.option-btn');
+      selectedAnswers[currentIndex] = index;
 
       allOptionBtns.forEach(function (btn) {
         btn.disabled = true;
@@ -324,11 +369,51 @@
       quizSection.classList.add('hidden');
       resultSection.classList.remove('hidden');
       scoreText.textContent = 'You scored ' + score + ' out of ' + questions.length + '.';
+      renderReview();
+    }
+
+    function renderReview() {
+      reviewSection.innerHTML = '';
+
+      var reviewHeading = document.createElement('h3');
+      reviewHeading.textContent = 'Review Answers';
+      reviewSection.appendChild(reviewHeading);
+
+      questions.forEach(function (q, index) {
+        var selectedIndex = selectedAnswers[index];
+        var isCorrect = selectedIndex === q.correctIndex;
+
+        var reviewItem = document.createElement('div');
+        reviewItem.className = 'review-item';
+
+        var questionText = document.createElement('p');
+        questionText.className = 'review-question';
+        questionText.textContent = (index + 1) + '. ' + q.question;
+
+        var selectedText = document.createElement('p');
+        selectedText.className = 'review-answer';
+        selectedText.textContent = 'Your answer: ' + q.options[selectedIndex];
+
+        var correctText = document.createElement('p');
+        correctText.className = 'review-answer';
+        correctText.textContent = 'Correct answer: ' + q.options[q.correctIndex];
+
+        var statusText = document.createElement('p');
+        statusText.className = 'review-status ' + (isCorrect ? 'correct' : 'incorrect');
+        statusText.textContent = isCorrect ? 'Correct' : 'Incorrect';
+
+        reviewItem.appendChild(questionText);
+        reviewItem.appendChild(selectedText);
+        reviewItem.appendChild(correctText);
+        reviewItem.appendChild(statusText);
+        reviewSection.appendChild(reviewItem);
+      });
     }
 
     startBtn.addEventListener('click', function () {
       currentIndex = 0;
       score = 0;
+      selectedAnswers = [];
       startBtn.classList.add('hidden');
       resultSection.classList.add('hidden');
       quizSection.classList.remove('hidden');
@@ -347,6 +432,8 @@
     restartBtn.addEventListener('click', function () {
       currentIndex = 0;
       score = 0;
+      selectedAnswers = [];
+      reviewSection.innerHTML = '';
       resultSection.classList.add('hidden');
       startBtn.classList.remove('hidden');
     });
