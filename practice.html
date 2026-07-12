@@ -92,6 +92,101 @@
     .btn:hover {
       background-color: #12293f;
     }
+
+    .btn:disabled {
+      background-color: #9db3c4;
+      cursor: not-allowed;
+    }
+
+    .quiz-section,
+    .result-section {
+      text-align: left;
+    }
+
+    .quiz-progress {
+      color: #1a3c5e;
+      font-size: 1rem;
+      font-weight: bold;
+      margin-bottom: 12px;
+    }
+
+    .question-text {
+      font-size: 1.15rem;
+      font-weight: bold;
+      color: #1a3c5e;
+      margin-bottom: 18px;
+    }
+
+    .options-container {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .option-btn {
+      display: block;
+      width: 100%;
+      text-align: left;
+      background-color: #fff;
+      color: #222;
+      border: 1px solid #d0dce8;
+      border-radius: 6px;
+      padding: 12px 16px;
+      font-size: 1rem;
+      font-family: inherit;
+      cursor: pointer;
+    }
+
+    .option-btn:hover:not(:disabled) {
+      border-color: #1a3c5e;
+      background-color: #f7f9fc;
+    }
+
+    .option-btn:disabled {
+      cursor: not-allowed;
+    }
+
+    .option-btn.correct {
+      background-color: #e3f5e6;
+      border-color: #2e8b40;
+      color: #1f5c2b;
+      font-weight: bold;
+    }
+
+    .option-btn.incorrect {
+      background-color: #fbe7e7;
+      border-color: #c0392b;
+      color: #8a2b21;
+      font-weight: bold;
+    }
+
+    .feedback {
+      font-size: 1rem;
+      font-weight: bold;
+      min-height: 24px;
+      margin-bottom: 16px;
+    }
+
+    .feedback.correct {
+      color: #2e8b40;
+    }
+
+    .feedback.incorrect {
+      color: #c0392b;
+    }
+
+    .score-text {
+      font-size: 1.3rem;
+      font-weight: bold;
+      color: #1a3c5e;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .hidden {
+      display: none;
+    }
   </style>
 </head>
 <body>
@@ -122,8 +217,140 @@
       <li>Track your progress as you improve</li>
     </ul>
 
-    <button class="btn" type="button">Start Practice</button>
+    <button class="btn" type="button" id="start-btn">Start Practice</button>
+
+    <section class="goal-section quiz-section hidden" id="quiz-section">
+      <p class="quiz-progress" id="quiz-progress">Question 1 of 3</p>
+      <p class="question-text" id="question-text"></p>
+      <div class="options-container" id="options-container"></div>
+      <p class="feedback" id="feedback"></p>
+      <button class="btn hidden" type="button" id="next-btn">Next Question</button>
+    </section>
+
+    <section class="goal-section result-section hidden" id="result-section">
+      <h2>Quiz Complete!</h2>
+      <p class="score-text" id="score-text"></p>
+      <button class="btn" type="button" id="restart-btn">Restart Quiz</button>
+    </section>
   </div>
+
+  <script>
+    var questions = [
+      {
+        question: 'Which cell type is the diagnostic hallmark of Hodgkin lymphoma?',
+        options: ['Reed-Sternberg cell', 'Auer rod', 'Owl-eye inclusion', 'Councilman body'],
+        correctIndex: 0
+      },
+      {
+        question: 'Psammoma bodies are classically seen in which tumor?',
+        options: ['Follicular thyroid carcinoma', 'Papillary thyroid carcinoma', 'Medullary thyroid carcinoma', 'Anaplastic thyroid carcinoma'],
+        correctIndex: 1
+      },
+      {
+        question: 'Which type of necrosis is characteristic of tuberculosis?',
+        options: ['Coagulative necrosis', 'Liquefactive necrosis', 'Fat necrosis', 'Caseous necrosis'],
+        correctIndex: 3
+      }
+    ];
+
+    var currentIndex = 0;
+    var score = 0;
+    var answered = false;
+
+    var startBtn = document.getElementById('start-btn');
+    var quizSection = document.getElementById('quiz-section');
+    var resultSection = document.getElementById('result-section');
+    var progressEl = document.getElementById('quiz-progress');
+    var questionEl = document.getElementById('question-text');
+    var optionsContainer = document.getElementById('options-container');
+    var feedbackEl = document.getElementById('feedback');
+    var nextBtn = document.getElementById('next-btn');
+    var restartBtn = document.getElementById('restart-btn');
+    var scoreText = document.getElementById('score-text');
+
+    function renderQuestion() {
+      answered = false;
+      feedbackEl.textContent = '';
+      feedbackEl.className = 'feedback';
+      nextBtn.classList.add('hidden');
+
+      var q = questions[currentIndex];
+      progressEl.textContent = 'Question ' + (currentIndex + 1) + ' of ' + questions.length;
+      questionEl.textContent = q.question;
+
+      optionsContainer.innerHTML = '';
+      q.options.forEach(function (option, index) {
+        var optionBtn = document.createElement('button');
+        optionBtn.type = 'button';
+        optionBtn.className = 'option-btn';
+        optionBtn.textContent = option;
+        optionBtn.addEventListener('click', function () {
+          selectOption(index, optionBtn);
+        });
+        optionsContainer.appendChild(optionBtn);
+      });
+    }
+
+    function selectOption(index, optionBtn) {
+      if (answered) {
+        return;
+      }
+      answered = true;
+
+      var q = questions[currentIndex];
+      var allOptionBtns = optionsContainer.querySelectorAll('.option-btn');
+
+      allOptionBtns.forEach(function (btn) {
+        btn.disabled = true;
+      });
+
+      if (index === q.correctIndex) {
+        score++;
+        optionBtn.classList.add('correct');
+        feedbackEl.textContent = 'Correct!';
+        feedbackEl.className = 'feedback correct';
+      } else {
+        optionBtn.classList.add('incorrect');
+        allOptionBtns[q.correctIndex].classList.add('correct');
+        feedbackEl.textContent = 'Incorrect. Correct answer: ' + q.options[q.correctIndex];
+        feedbackEl.className = 'feedback incorrect';
+      }
+
+      nextBtn.classList.remove('hidden');
+      nextBtn.textContent = currentIndex === questions.length - 1 ? 'See Score' : 'Next Question';
+    }
+
+    function showResult() {
+      quizSection.classList.add('hidden');
+      resultSection.classList.remove('hidden');
+      scoreText.textContent = 'You scored ' + score + ' out of ' + questions.length + '.';
+    }
+
+    startBtn.addEventListener('click', function () {
+      currentIndex = 0;
+      score = 0;
+      startBtn.classList.add('hidden');
+      resultSection.classList.add('hidden');
+      quizSection.classList.remove('hidden');
+      renderQuestion();
+    });
+
+    nextBtn.addEventListener('click', function () {
+      currentIndex++;
+      if (currentIndex < questions.length) {
+        renderQuestion();
+      } else {
+        showResult();
+      }
+    });
+
+    restartBtn.addEventListener('click', function () {
+      currentIndex = 0;
+      score = 0;
+      resultSection.classList.add('hidden');
+      startBtn.classList.remove('hidden');
+    });
+  </script>
 
 </body>
 </html>
