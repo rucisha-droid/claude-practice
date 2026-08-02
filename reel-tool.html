@@ -72,10 +72,42 @@
       margin-bottom: 20px;
     }
 
-    .output-section h2 {
+    .output-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .output-header h2 {
       color: #1a3c5e;
       font-size: 1.1rem;
-      margin-bottom: 10px;
+    }
+
+    .copy-section-btn {
+      flex-shrink: 0;
+      background-color: #fff;
+      color: #1a3c5e;
+      border: 1px solid #1a3c5e;
+      border-radius: 6px;
+      padding: 5px 12px;
+      font-size: 0.82rem;
+      font-weight: bold;
+      font-family: inherit;
+      cursor: pointer;
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    .copy-section-btn:hover {
+      background-color: #1a3c5e;
+      color: #fff;
+    }
+
+    .copy-section-btn.copied {
+      background-color: #2fa967;
+      border-color: #2fa967;
+      color: #fff;
     }
 
     .output-section .output-content {
@@ -104,27 +136,42 @@
     </div>
 
     <div class="output-section">
-      <h2>Reel Title</h2>
+      <div class="output-header">
+        <h2>Reel Title</h2>
+        <button class="copy-section-btn" type="button" data-target="title-output">Copy</button>
+      </div>
       <p class="output-content" id="title-output">—</p>
     </div>
 
     <div class="output-section">
-      <h2>Hinglish Script</h2>
+      <div class="output-header">
+        <h2>Hinglish Script</h2>
+        <button class="copy-section-btn" type="button" data-target="script-output">Copy</button>
+      </div>
       <p class="output-content" id="script-output">—</p>
     </div>
 
     <div class="output-section">
-      <h2>Caption</h2>
+      <div class="output-header">
+        <h2>Caption</h2>
+        <button class="copy-section-btn" type="button" data-target="caption-output">Copy</button>
+      </div>
       <p class="output-content" id="caption-output">—</p>
     </div>
 
     <div class="output-section">
-      <h2>Hashtags</h2>
+      <div class="output-header">
+        <h2>Hashtags</h2>
+        <button class="copy-section-btn" type="button" data-target="hashtags-output">Copy</button>
+      </div>
       <p class="output-content" id="hashtags-output">—</p>
     </div>
 
     <div class="output-section">
-      <h2>Video Shot List</h2>
+      <div class="output-header">
+        <h2>Video Shot List</h2>
+        <button class="copy-section-btn" type="button" data-target="shotlist-output">Copy</button>
+      </div>
       <p class="output-content" id="shotlist-output">—</p>
     </div>
   </div>
@@ -171,6 +218,41 @@
       document.getElementById('caption-output').textContent = caption;
       document.getElementById('hashtags-output').textContent = hashtags;
       document.getElementById('shotlist-output').textContent = shotList;
+    });
+
+    document.querySelectorAll('.copy-section-btn').forEach(function (btn) {
+      btn.addEventListener('click', async function () {
+        var target = document.getElementById(btn.dataset.target);
+        var text = target.textContent.trim();
+
+        if (!text || text === '—') {
+          return;
+        }
+
+        try {
+          await navigator.clipboard.writeText(text);
+        } catch (err) {
+          var range = document.createRange();
+          range.selectNodeContents(target);
+          var selection = window.getSelection();
+          selection.removeAllRanges();
+          selection.addRange(range);
+          var copied = document.execCommand('copy');
+          selection.removeAllRanges();
+          if (!copied) {
+            return;
+          }
+        }
+
+        var originalLabel = 'Copy';
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied');
+        clearTimeout(btn._copyTimeout);
+        btn._copyTimeout = setTimeout(function () {
+          btn.textContent = originalLabel;
+          btn.classList.remove('copied');
+        }, 1500);
+      });
     });
   </script>
 
